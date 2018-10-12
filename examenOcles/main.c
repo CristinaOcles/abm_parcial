@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 #define TAM_CLIENTES 20
 #define TAM_ALQUILERES 20
 
@@ -83,7 +83,7 @@ void mostrarJuegos(eJuegos lista[], int tamJ, eCategorias categorias[], int tamC
 void mostrarJuego(eJuegos unJuego, eCategorias categorias[], int tam);
 void listarJuegos(eJuegos juegos[], int tam);
 void mostrarAlquileres(eAlquileres alquileres[], int tamAl, eJuegos juegos[], int tamJue, eClientes clientes[], int tamClien, eCategorias categorias[], int tamC);
-char obtenerCategoria(eCategorias categorias[], int tam, int idCategoria);
+void obtenerCategoria(eCategorias categorias[], int tam, int idCategoria, char descripcion[]);
 void listarCategorias(eCategorias categorias[], int tam);
 void listarJuegosXcategorias(eJuegos juegos[],int tamJ, eCategorias categorias[], int tamC);
 
@@ -104,7 +104,8 @@ int main()
     eAlquileres alquileres[TAM_ALQUILERES];
     eCategorias categorias[5];
     eJuegos juegos[5];
-
+    cargarCategorias(categorias);
+    cargarJuegos(juegos);
     inicializarAlquiler(alquileres,TAM_ALQUILERES);
     inicializarClientes(clientes, TAM_CLIENTES);
 
@@ -436,7 +437,6 @@ void modificaCliente(eClientes lista[], int tam)
 {
     int codigoCliente;
     int indice;
-    char seguir;
 
 
     system("cls");
@@ -793,7 +793,7 @@ void mostrarAlquiler(eAlquileres unAlquiler, eJuegos juegos[], int tamJue, eClie
     eClientes cliente;
 
     obtenerDescAlquiler(juegos, tamJue, unAlquiler.CodigoJuego, descAlquiler);
-    strcpy(descCat, obtenerCategoria(categorias,tamCat,unAlquiler.CodigoJuego));
+    obtenerCategoria(categorias,tamCat,unAlquiler.CodigoJuego,descCat);
     indice = buscarCliente(clientes, tamCli, unAlquiler.CodigoCliente);
 
     cliente = clientes[indice];
@@ -830,12 +830,10 @@ void mostrarJuego(eJuegos unJuego, eCategorias categorias[], int tam)
 {
     char desCat[20];
 
-    strcpy(desCat,obtenerCategoria(categorias, tam, unJuego.codigoJuego));
+    obtenerCategoria(categorias, tam, unJuego.codigoJuego, desCat);
 
     printf("%4d %10s  %6.2f %10s\n", unJuego.codigoJuego, unJuego.descripcion,unJuego.importe, desCat);
 }
-
-
 
 
 
@@ -885,9 +883,9 @@ void mostrarAlquileres(eAlquileres alquileres[], int tamAl, eJuegos juegos[], in
 
 
 
-char obtenerCategoria(eCategorias categorias[], int tam, int idCategoria)
+void obtenerCategoria(eCategorias categorias[], int tam, int idCategoria, char descripcion[])
 {
-    char descripcion[25];
+
 
     for(int i=0; i < tam; i++)
     {
@@ -897,7 +895,7 @@ char obtenerCategoria(eCategorias categorias[], int tam, int idCategoria)
             strcpy(descripcion, categorias[i].descripcion);
         }
     }
-    return descripcion;
+
 }
 
 
@@ -931,7 +929,7 @@ void listarJuegosXcategorias(eJuegos juegos[],int tamJ, eCategorias categorias[]
     printf("Ingrese categoria: ");
     scanf("%d",&idCategoria);
 
-    strcpy(descripcion, obtenerCategoria(categorias, tamC, idCategoria));
+    obtenerCategoria(categorias, tamC, idCategoria, descripcion);
 
     system("cls");
     printf("juegos de categorias %s\n\n", descripcion);
