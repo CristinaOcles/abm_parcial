@@ -8,3 +8,20 @@
 	<stdlib.h>
 	<string.h>
 
+1539385632 source:d:\ocles.cristina.1g\abm_parcial-master\examenocles\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
+1539387101 d:\ocles.cristina.1g\abm_parcial-master\examenocles\funciones.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1539389057 source:d:\ocles.cristina.1g\abm_parcial-master\examenocles\funciones.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"funciones.h"
+
